@@ -5,10 +5,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+
 public class CellPanel extends JPanel  {
-
     private final Cell cell;
-
+    static boolean paintBlocks=false;
     public CellPanel(int row, int column) {
         this.cell=new Cell(row,column);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -17,6 +17,7 @@ public class CellPanel extends JPanel  {
     }
 
     static class OnCellClickedListener extends MouseAdapter {
+
         @Override
         public void mouseClicked(MouseEvent e) {
             CellPanel clickedPanel = (CellPanel) e.getSource();
@@ -49,6 +50,22 @@ public class CellPanel extends JPanel  {
 
             }
 
+        }
+        public void mousePressed(MouseEvent e) {
+            paintBlocks=true;
+        }
+        public void mouseReleased(MouseEvent e) {
+            paintBlocks=false;
+        }
+        public void mouseEntered(MouseEvent e) {
+            if (paintBlocks) {
+                CellPanel clickedPanel = (CellPanel) e.getSource();
+                CellType cellType = SettingsManger.getSelectedTypeForCell();
+                if (cellType == CellType.BlockCell) {
+                    clickedPanel.setBackground(Color.BLACK);
+                    clickedPanel.cell.setCellType(CellType.BlockCell);
+                }
+            }
         }
     }
 
