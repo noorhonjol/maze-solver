@@ -1,6 +1,5 @@
 package main;
 
-import java.util.List;
 import java.util.Set;
 
 public class Cell {
@@ -66,7 +65,7 @@ public class Cell {
     }
     public int calculateHeuristic() {
         int result = Integer.MAX_VALUE;
-        Set<CellPanel> goals = SettingsManger.getEndPoints();
+        Set<CellPanel> goals = SettingsManger.getGoalPoints();
         for(CellPanel goal:goals) {
             int current=Math.abs(goal.getCell().getRow()-row)+Math.abs(goal.getCell().getColumn()-column);
             result=Math.min(result,current);

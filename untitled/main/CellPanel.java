@@ -12,7 +12,7 @@ public class CellPanel extends JPanel  {
     public CellPanel(int row, int column) {
         this.cell=new Cell(row,column);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        add(new JLabel(row+" "+column));
+        //add(new JLabel(row+" "+column));//eases debugging TODO : to be removed
         addMouseListener(new OnCellClickedListener());
     }
 
@@ -29,7 +29,8 @@ public class CellPanel extends JPanel  {
                     if (startPanel == null) {
                         clickedPanel.setBackground(Color.GREEN);
                         clickedPanel.cell.setCellType(CellType.StartCell);
-                    }else{
+                    }
+                    else{
                         startPanel.setBackground(Color.white);
                         clickedPanel.setBackground(Color.GREEN);
                         startPanel.cell.setCellType(CellType.NormalCell);
@@ -53,6 +54,13 @@ public class CellPanel extends JPanel  {
         }
         public void mousePressed(MouseEvent e) {
             paintBlocks=true;
+            //todo duplicate code
+            CellPanel clickedPanel = (CellPanel) e.getSource();
+            CellType cellType = SettingsManger.getSelectedTypeForCell();
+            if (cellType == CellType.BlockCell) {
+                clickedPanel.setBackground(Color.BLACK);
+                clickedPanel.cell.setCellType(CellType.BlockCell);
+            }
         }
         public void mouseReleased(MouseEvent e) {
             paintBlocks=false;

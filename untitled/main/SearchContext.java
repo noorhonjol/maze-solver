@@ -8,8 +8,8 @@ import java.util.List;
 
 public class SearchContext {
 
-    int width=10;
-    int height=10;
+    int width=30;
+    int height=30;
     protected AbstractSearchStrategy searchStrategy;
 
     public SearchContext(AbstractSearchStrategy searchStrategy) {
