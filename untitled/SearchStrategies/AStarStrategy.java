@@ -1,10 +1,24 @@
 package SearchStrategies;
 
-import java.util.List;
+import main.Cell;
 
-public class AStarStrategy implements ISearchStrategy {
+import java.util.Comparator;
+import java.util.Objects;
+import java.util.PriorityQueue;
+
+public class AStarStrategy extends AbstractSearchStrategy {
+
     @Override
-    public void compare(List<Object> openList, List<Object> closeList) {
-
+    protected Comparator<Cell> getComparator() {
+        return new Comparator<Cell>() {
+            @Override
+            public int compare(Cell o1, Cell o2) {
+                if (!o1.f.equals(o2.f)) {
+                    return Integer.compare(o1.f, o2.f);
+                } else {
+                    return Integer.compare(o1.h, o2.h);
+                }
+            }
+        };
     }
 }
