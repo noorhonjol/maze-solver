@@ -30,7 +30,6 @@ public class SearchContext {
 
             Cell current= openList.poll();
             List<Cell> successors= getSuccessors(current,graph);
-
             for (Cell successor : successors){
 
                 if(goals.contains(successor)){
@@ -78,7 +77,7 @@ public class SearchContext {
         if (col-1 >= 0) successors.add(graph.get(row).get(col - 1));    // left
         if (col+1 <= width-1) successors.add(graph.get(row).get(col + 1));    // right
         if (row-1 >= 0) successors.add(graph.get(row - 1).get(col));    // top
-        if (row+1 <= width - 1) successors.add(graph.get(row + 1).get(col));    // bottom
+        if (row+1 <= height - 1) successors.add(graph.get(row + 1).get(col));    // bottom
 
         // Optionally handle diagonal movements if needed
         // if (diagonal movements are allowed) { add diagonal cells }

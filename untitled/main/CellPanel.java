@@ -12,6 +12,7 @@ public class CellPanel extends JPanel  {
     public CellPanel(int row, int column) {
         this.cell=new Cell(row,column);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        add(new JLabel(row+" "+column));
         addMouseListener(new OnCellClickedListener());
     }
 
@@ -43,6 +44,7 @@ public class CellPanel extends JPanel  {
                 }
                 case BlockCell -> {
                     clickedPanel.setBackground(Color.BLACK);
+                    clickedPanel.cell.setCellType(CellType.BlockCell);
                 }
 
             }
