@@ -8,8 +8,8 @@ import java.util.List;
 
 public class SearchContext {
 
-    int width=30;
-    int height=30;
+    int width=25;
+    int height=25;
     protected AbstractSearchStrategy searchStrategy;
 
     public SearchContext(AbstractSearchStrategy searchStrategy) {
@@ -50,7 +50,7 @@ public class SearchContext {
                     if (!openList.contains(successor)) {
                         openList.add(successor);
 
-                        Main.CellPanels.get(successor.getRow()).get(successor.getColumn()).setBackground(Color.yellow);
+                        Main.cellPanels.get(successor.getRow()).get(successor.getColumn()).setBackground(Color.yellow);
 
 
                     }

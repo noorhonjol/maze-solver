@@ -5,18 +5,19 @@ import SearchStrategies.AbstractSearchStrategy;
 import SearchStrategies.SearchStrategyFactory;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
 public class Main {
-    static List<List<CellPanel>> CellPanels=new ArrayList<>();
+    static List<List<CellPanel>> cellPanels =new ArrayList<>();
+    static private int width=25;
+    static private int height=25;
 
     public static void main(String[] args){
         JFrame frame = new JFrame();
-        MazePanel mazePanel = new MazePanel(30,30);
+        MazePanel mazePanel = new MazePanel(width,height);
 
         frame.setLayout(new BorderLayout());
 
@@ -48,7 +49,7 @@ public class Main {
             }
             else while(tracePath.cellType != CellType.StartCell) {
                 if(tracePath.cellType != CellType.GoalCell){
-                    Main.CellPanels.get(tracePath.getRow()).get(tracePath.getColumn()).setBackground(Color.pink);
+                    Main.cellPanels.get(tracePath.getRow()).get(tracePath.getColumn()).setBackground(Color.pink);
                 }
                 tracePath=tracePath.parent;
             }
@@ -60,8 +61,10 @@ public class Main {
         hardResetBtn.setSize(50, 50);
         hardResetBtn.addActionListener(e -> resetCellPanels(true));
         algorithmSettingsPanel.add(hardResetBtn);
-
-
+        JButton generateMaze = new JButton("generate maze");
+        generateMaze.setSize(50, 50);
+        generateMaze.addActionListener(e -> randomMaze());
+        algorithmSettingsPanel.add(generateMaze);
         frame.add(algorithmSettingsPanel,BorderLayout.WEST);
 
         frame.add(mazePanel,BorderLayout.CENTER);
@@ -74,9 +77,21 @@ public class Main {
 
 
     }
-    //todo similar function to reset all canvas
+
+    private static void randomMaze() {
+        resetCellPanels(true);
+        Random rand = new Random();
+        for (List<CellPanel> cellPanelList : cellPanels) {
+            for (CellPanel cell : cellPanelList) {
+                if (rand.nextDouble() < 0.35) {
+                    cell.getCell().setCellType(CellType.BlockCell);
+                    cell.setBackground(Color.black);
+                }
+            }
+        }
+    }
     private static void resetCellPanels(boolean hardReset) {
-        for(List<CellPanel> cellPanels : CellPanels){
+        for(List<CellPanel> cellPanels : cellPanels){
             for(CellPanel cellPanel : cellPanels){
                 if(hardReset){
                     cellPanel.getCell().setCellType(CellType.NormalCell);

@@ -11,7 +11,7 @@ public class TypeOfCellChoicesPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         startBtn = new JRadioButton("Start");
-        goalBtn = new JRadioButton("End");
+        goalBtn = new JRadioButton("Goal");
         blockBtn = new JRadioButton("Block");
 
         startBtn.setSelected(true);

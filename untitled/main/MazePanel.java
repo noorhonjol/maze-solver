@@ -25,7 +25,7 @@ public class MazePanel extends JPanel {
 
             }
             cells.add(row);
-            Main.CellPanels.add(panelRow);
+            Main.cellPanels.add(panelRow);
         }
     }
 //

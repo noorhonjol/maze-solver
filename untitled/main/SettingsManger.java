@@ -11,8 +11,8 @@ public class SettingsManger {
     private static CellType selectedTypeForCell = CellType.StartCell;
 
     private static CellPanel startPoint = null ;
-    private static final Set<CellPanel> goalPoints =new HashSet<>(); ;
-
+    private static final Set<CellPanel> goalPoints =new HashSet<>();
+    //todo : resetting a cell should remove it from this set if its a goal node
     public static AlgorithmType getAlgorithmType() {
         return algorithmType;
     }
