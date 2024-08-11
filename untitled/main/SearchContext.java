@@ -15,7 +15,7 @@ public class SearchContext {
         this.searchStrategy = searchStrategy;
     }
 
-    public Cell search(List<List<Cell>> graph, Cell start, Set<Cell> goals){
+    public Cell search(List<List<CellPanel>> graph, Cell start, Set<Cell> goals){
 
         PriorityQueue<Cell> openList = searchStrategy.getOpenList();
         Set<Cell> closeList = new HashSet<>();
@@ -67,16 +67,16 @@ public class SearchContext {
     }
 
 
-    private List<Cell> getSuccessors(Cell current,List<List<Cell>> graph) {
+    private List<Cell> getSuccessors(Cell current,List<List<CellPanel>> graph) {
         List<Cell> successors = new ArrayList<>();
         int row = current.getRow();
         int col = current.getColumn();
 
 
-        if (col-1 >= 0) successors.add(graph.get(row).get(col - 1));    // left
-        if (col+1 <= SettingsManger.width-1) successors.add(graph.get(row).get(col + 1));    // right
-        if (row-1 >= 0) successors.add(graph.get(row - 1).get(col));    // top
-        if (row+1 <= SettingsManger.height - 1) successors.add(graph.get(row + 1).get(col));    // bottom
+        if (col-1 >= 0) successors.add(graph.get(row).get(col - 1).getCell());    // left
+        if (col+1 <= SettingsManger.width-1) successors.add(graph.get(row).get(col + 1).getCell());    // right
+        if (row-1 >= 0) successors.add(graph.get(row - 1).get(col).getCell());    // top
+        if (row+1 <= SettingsManger.height - 1) successors.add(graph.get(row + 1).get(col).getCell());    // bottom
 
 
         successors.removeIf(cell -> cell.cellType==main.CellType.BlockCell);

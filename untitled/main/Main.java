@@ -1,13 +1,7 @@
 package main;
-
-import SearchStrategies.AlgorithmType;
-import SearchStrategies.AbstractSearchStrategy;
-import SearchStrategies.SearchStrategyFactory;
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 
 public class Main {

@@ -43,7 +43,7 @@ public class MainButtons extends JPanel {
     }
 
     private JButton getStartSearchButton(){
-        JButton startSearchButton = new JButton("search");//ide says we can extract method, look into that
+        JButton startSearchButton = new JButton("search");
         startSearchButton.setSize(50, 50);
         startSearchButton.addActionListener(e -> SettingsManger.search());
         return startSearchButton;
