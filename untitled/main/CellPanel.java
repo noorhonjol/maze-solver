@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 
 public class CellPanel extends JPanel  {
@@ -15,7 +16,22 @@ public class CellPanel extends JPanel  {
         //add(new JLabel(row+" "+column));//eases debugging TODO : to be removed
         addMouseListener(new OnCellClickedListener());
     }
+    public static void resetCellPanels(boolean hardReset) {
+        for(List<CellPanel> cellPanels : SettingsManger.cellPanels){
+            for(CellPanel cellPanel : cellPanels){
+                if(hardReset){
+                    cellPanel.getCell().setCellType(CellType.NormalCell);
+                    SettingsManger.setStartPoint(null);
+                    SettingsManger.removeAllGoals();
 
+                }
+                if(hardReset||cellPanel.getCell().getCellType()==CellType.NormalCell){
+                    cellPanel.setBackground(Color.WHITE);
+                }
+
+            }
+        }
+    }
     static class OnCellClickedListener extends MouseAdapter {
 
         @Override
@@ -27,52 +43,57 @@ public class CellPanel extends JPanel  {
                 case StartCell -> {
                     CellPanel startPanel = SettingsManger.getStartPoint();
                     if (startPanel == null) {
-                        clickedPanel.setBackground(Color.GREEN);
+                        clickedPanel.setBackground(Color.BLUE);
                         clickedPanel.cell.setCellType(CellType.StartCell);
                     }
                     else{
                         startPanel.setBackground(Color.white);
-                        clickedPanel.setBackground(Color.GREEN);
+                        clickedPanel.setBackground(Color.BLUE);
                         startPanel.cell.setCellType(CellType.NormalCell);
                     }
                     SettingsManger.setStartPoint(clickedPanel);
 
                 }
                 case GoalCell -> {
-                    clickedPanel.setBackground(Color.RED);
+                    clickedPanel.setBackground(Color.GREEN);
                     clickedPanel.cell.setCellType(CellType.GoalCell);
-                    SettingsManger.addToEndPoints(clickedPanel);
+                    SettingsManger.addToGoalPoints(clickedPanel);
 
                 }
                 case BlockCell -> {
                     clickedPanel.setBackground(Color.BLACK);
                     clickedPanel.cell.setCellType(CellType.BlockCell);
                 }
+                case NormalCell -> {
+                    clickedPanel.setBackground(Color.white);
+                    clickedPanel.cell.setCellType(CellType.NormalCell);
 
+                }
             }
 
         }
         public void mousePressed(MouseEvent e) {
             paintBlocks=true;
-            //todo duplicate code
             CellPanel clickedPanel = (CellPanel) e.getSource();
+            createBlock(clickedPanel);
+        }
+
+        public void mouseReleased(MouseEvent e) {
+            paintBlocks=false;
+        }
+
+        public void mouseEntered(MouseEvent e) {
+            if (paintBlocks) {
+                CellPanel clickedPanel = (CellPanel) e.getSource();
+                createBlock(clickedPanel);
+            }
+        }
+        private static void createBlock(CellPanel clickedPanel){
+
             CellType cellType = SettingsManger.getSelectedTypeForCell();
             if (cellType == CellType.BlockCell) {
                 clickedPanel.setBackground(Color.BLACK);
                 clickedPanel.cell.setCellType(CellType.BlockCell);
-            }
-        }
-        public void mouseReleased(MouseEvent e) {
-            paintBlocks=false;
-        }
-        public void mouseEntered(MouseEvent e) {
-            if (paintBlocks) {
-                CellPanel clickedPanel = (CellPanel) e.getSource();
-                CellType cellType = SettingsManger.getSelectedTypeForCell();
-                if (cellType == CellType.BlockCell) {
-                    clickedPanel.setBackground(Color.BLACK);
-                    clickedPanel.cell.setCellType(CellType.BlockCell);
-                }
             }
         }
     }

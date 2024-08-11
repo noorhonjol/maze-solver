@@ -8,8 +8,7 @@ import java.util.List;
 
 public class SearchContext {
 
-    int width=25;
-    int height=25;
+
     protected AbstractSearchStrategy searchStrategy;
 
     public SearchContext(AbstractSearchStrategy searchStrategy) {
@@ -50,7 +49,7 @@ public class SearchContext {
                     if (!openList.contains(successor)) {
                         openList.add(successor);
 
-                        Main.cellPanels.get(successor.getRow()).get(successor.getColumn()).setBackground(Color.yellow);
+                        SettingsManger.cellPanels.get(successor.getRow()).get(successor.getColumn()).setBackground(Color.yellow);
 
 
                     }
@@ -73,16 +72,13 @@ public class SearchContext {
         int row = current.getRow();
         int col = current.getColumn();
 
-        // Add adjacent cells (up, down, left, right)
+
         if (col-1 >= 0) successors.add(graph.get(row).get(col - 1));    // left
-        if (col+1 <= width-1) successors.add(graph.get(row).get(col + 1));    // right
+        if (col+1 <= SettingsManger.width-1) successors.add(graph.get(row).get(col + 1));    // right
         if (row-1 >= 0) successors.add(graph.get(row - 1).get(col));    // top
-        if (row+1 <= height - 1) successors.add(graph.get(row + 1).get(col));    // bottom
+        if (row+1 <= SettingsManger.height - 1) successors.add(graph.get(row + 1).get(col));    // bottom
 
-        // Optionally handle diagonal movements if needed
-        // if (diagonal movements are allowed) { add diagonal cells }
 
-        // Filter out blocked cells
         successors.removeIf(cell -> cell.cellType==main.CellType.BlockCell);
 
         return successors;
