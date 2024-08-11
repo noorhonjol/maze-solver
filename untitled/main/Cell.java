@@ -28,9 +28,8 @@ public class Cell {
     public int getColumn() {
         return column;
     }
-    public Integer getF() {
-        return f;
-    }
+
+    public Integer getF() {return f;}
 
     public void setF(Integer f) {
         this.f = f;

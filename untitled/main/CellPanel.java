@@ -1,10 +1,8 @@
 package main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 
 
 public class CellPanel extends JPanel  {
@@ -13,30 +11,15 @@ public class CellPanel extends JPanel  {
     public CellPanel(int row, int column) {
         this.cell=new Cell(row,column);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        //add(new JLabel(row+" "+column));//eases debugging TODO : to be removed
         addMouseListener(new OnCellClickedListener());
     }
-    public static void resetCellPanels(boolean hardReset) {
-        for(List<CellPanel> cellPanels : SettingsManger.cellPanels){
-            for(CellPanel cellPanel : cellPanels){
-                if(hardReset){
-                    cellPanel.getCell().setCellType(CellType.NormalCell);
-                    SettingsManger.setStartPoint(null);
-                    SettingsManger.removeAllGoals();
 
-                }
-                if(hardReset||cellPanel.getCell().getCellType()==CellType.NormalCell){
-                    cellPanel.setBackground(Color.WHITE);
-                }
-
-            }
-        }
-    }
     static class OnCellClickedListener extends MouseAdapter {
 
         @Override
         public void mouseClicked(MouseEvent e) {
             CellPanel clickedPanel = (CellPanel) e.getSource();
+            SettingsManger.getGoalPoints().remove(clickedPanel);
             CellType cellType = SettingsManger.getSelectedTypeForCell();
             switch (cellType) {
 
@@ -48,8 +31,9 @@ public class CellPanel extends JPanel  {
                     }
                     else{
                         startPanel.setBackground(Color.white);
-                        clickedPanel.setBackground(Color.BLUE);
                         startPanel.cell.setCellType(CellType.NormalCell);
+                        clickedPanel.setBackground(Color.BLUE);
+                        clickedPanel.cell.setCellType(CellType.StartCell);
                     }
                     SettingsManger.setStartPoint(clickedPanel);
 

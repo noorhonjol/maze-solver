@@ -24,7 +24,7 @@ public class MazePanel extends JPanel {
     }
 
     public static void createRandomMaze() {
-        CellPanel.resetCellPanels(true);
+        Utilities.resetCellPanels(true);
         Random rand = new Random();
         for (List<CellPanel> cellPanelList : SettingsManger.cellPanels) {
             for (CellPanel cell : cellPanelList) {

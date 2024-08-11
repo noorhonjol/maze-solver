@@ -28,7 +28,7 @@ public class SearchContext {
         while(!openList.isEmpty()){
 
             Cell current= openList.poll();
-            List<Cell> successors= getSuccessors(current,graph);
+            List<Cell> successors= Utilities.getSuccessors(current,graph);
             for (Cell successor : successors){
 
                 if(goals.contains(successor)){
@@ -67,21 +67,5 @@ public class SearchContext {
     }
 
 
-    private List<Cell> getSuccessors(Cell current,List<List<CellPanel>> graph) {
-        List<Cell> successors = new ArrayList<>();
-        int row = current.getRow();
-        int col = current.getColumn();
-
-
-        if (col-1 >= 0) successors.add(graph.get(row).get(col - 1).getCell());    // left
-        if (col+1 <= SettingsManger.width-1) successors.add(graph.get(row).get(col + 1).getCell());    // right
-        if (row-1 >= 0) successors.add(graph.get(row - 1).get(col).getCell());    // top
-        if (row+1 <= SettingsManger.height - 1) successors.add(graph.get(row + 1).get(col).getCell());    // bottom
-
-
-        successors.removeIf(cell -> cell.cellType==main.CellType.BlockCell);
-
-        return successors;
-    }
 
 }

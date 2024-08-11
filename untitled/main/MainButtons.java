@@ -1,13 +1,5 @@
 package main;
-
-import SearchStrategies.AbstractSearchStrategy;
-import SearchStrategies.AlgorithmType;
-import SearchStrategies.SearchStrategyFactory;
-
 import javax.swing.*;
-import java.awt.*;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class MainButtons extends JPanel {
     public MainButtons() {
@@ -31,21 +23,21 @@ public class MainButtons extends JPanel {
     private JButton getResetButton() {
         JButton hardResetBtn = new JButton("reset");
         hardResetBtn.setSize(50, 50);
-        hardResetBtn.addActionListener(e -> CellPanel.resetCellPanels(true));
+        hardResetBtn.addActionListener(e -> Utilities.resetCellPanels(true));
         return hardResetBtn;
     }
 
     private JButton getClearButton() {
         JButton hardResetBtn = new JButton("clear canvas");
         hardResetBtn.setSize(50, 50);
-        hardResetBtn.addActionListener(e -> CellPanel.resetCellPanels(false));
+        hardResetBtn.addActionListener(e -> Utilities.resetCellPanels(false));
         return hardResetBtn;
     }
 
     private JButton getStartSearchButton(){
         JButton startSearchButton = new JButton("search");
         startSearchButton.setSize(50, 50);
-        startSearchButton.addActionListener(e -> SettingsManger.search());
+        startSearchButton.addActionListener(e -> Utilities.search());
         return startSearchButton;
     }
 }
