@@ -4,9 +4,7 @@ import SearchStrategies.AlgorithmType;
 import SearchStrategies.SearchStrategyFactory;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,43 +44,32 @@ public class Utilities {
         List<List<CellPanel>> graph = SettingsManger.getCellPanels();
         CellPanel startPoint = SettingsManger.getStartPoint();
 
-        if (Objects.isNull(startPoint)){
+        if (startPoint==null){
             JOptionPane.showMessageDialog(null, "no start point");
+            SettingsManger.costLabel.setText("cost is : undefined");
+
             return;
         }
         Cell tracePath = searchContext.search(graph, startPoint.getCell(), goals);
 
         if(tracePath==null){
             JOptionPane.showMessageDialog(null, "No path found");
+            SettingsManger.costLabel.setText("cost is : undefined");
             return;
         }
 
 
-        while(tracePath != SettingsManger.getStartPoint().getCell()) {
-            if(tracePath.cellType != CellType.GoalCell){
+
+        while (tracePath != SettingsManger.getStartPoint().getCell()) {
+            if (tracePath.cellType != CellType.GoalCell) {
                 SettingsManger.cellPanels.get(tracePath.getRow()).get(tracePath.getColumn()).setBackground(Color.pink);
             }
-            tracePath=tracePath.parent;
+            tracePath = tracePath.getParent();
             totalCost++;
         }
 
-        SettingsManger.costLabel.setText("cost is : " + (totalCost>0?totalCost:"undefined"));
+        SettingsManger.costLabel.setText("cost is : " + totalCost);
     }
-    public static List<Cell> getSuccessors(Cell current,List<List<CellPanel>> graph) {
-        List<Cell> successors = new ArrayList<>();
-        int row = current.getRow();
-        int col = current.getColumn();
 
-
-        if (col-1 >= 0) successors.add(graph.get(row).get(col - 1).getCell());    // left
-        if (col+1 <= SettingsManger.width-1) successors.add(graph.get(row).get(col + 1).getCell());    // right
-        if (row-1 >= 0) successors.add(graph.get(row - 1).get(col).getCell());    // top
-        if (row+1 <= SettingsManger.height - 1) successors.add(graph.get(row + 1).get(col).getCell());    // bottom
-
-
-        successors.removeIf(cell -> cell.cellType==main.CellType.BlockCell);
-
-        return successors;
-    }
 
 }

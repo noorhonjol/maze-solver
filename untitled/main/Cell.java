@@ -4,10 +4,10 @@ import java.util.Set;
 
 public class Cell {
 
-    Cell parent;
-    public Integer f=Integer.MAX_VALUE;
-    public Integer g=Integer.MAX_VALUE;
-    public Integer h=Integer.MAX_VALUE;
+    private Cell parent;
+    private Integer f=Integer.MAX_VALUE;
+    private Integer g=Integer.MAX_VALUE;
+    private Integer h=Integer.MAX_VALUE;
     private final int row;
     private final int column;
     CellType cellType;
@@ -16,10 +16,6 @@ public class Cell {
         this.row = row;
         this.column = column;
         cellType = CellType.NormalCell;
-    }
-    public Cell(int row, int column, CellType cellType) {
-        this(row,column);
-        this.cellType = cellType;
     }
     public int getRow() {
         return row;

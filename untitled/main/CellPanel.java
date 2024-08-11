@@ -25,16 +25,12 @@ public class CellPanel extends JPanel  {
 
                 case StartCell -> {
                     CellPanel startPanel = SettingsManger.getStartPoint();
-                    if (startPanel == null) {
-                        clickedPanel.setBackground(Color.BLUE);
-                        clickedPanel.cell.setCellType(CellType.StartCell);
-                    }
-                    else{
+                    if (startPanel != null) {
                         startPanel.setBackground(Color.white);
                         startPanel.cell.setCellType(CellType.NormalCell);
-                        clickedPanel.setBackground(Color.BLUE);
-                        clickedPanel.cell.setCellType(CellType.StartCell);
                     }
+                    clickedPanel.setBackground(Color.BLUE);
+                    clickedPanel.cell.setCellType(CellType.StartCell);
                     SettingsManger.setStartPoint(clickedPanel);
 
                 }
@@ -82,10 +78,7 @@ public class CellPanel extends JPanel  {
         }
     }
 
-    public CellPanel(int row, int column, CellType cellType) {
-        this (row,column);
-        this.cell.setCellType(cellType);
-    }
+
 
     public Cell getCell() {
         return cell;

@@ -1,9 +1,8 @@
 package SearchStrategies;
 
 import main.Cell;
-
 import java.util.Comparator;
-import java.util.PriorityQueue;
+
 
 public class BestFirstSearchStrategy extends AbstractSearchStrategy {
     @Override
@@ -11,7 +10,7 @@ public class BestFirstSearchStrategy extends AbstractSearchStrategy {
         return new Comparator<Cell>() {
             @Override
             public int compare(Cell o1, Cell o2) {
-                return Integer.compare(o1.h,o2.h);
+                return Integer.compare(o1.getH(),o2.getH());
             }
         };
     }

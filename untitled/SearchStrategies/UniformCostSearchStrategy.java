@@ -3,7 +3,7 @@ package SearchStrategies;
 import main.Cell;
 
 import java.util.Comparator;
-import java.util.PriorityQueue;
+
 
 public class UniformCostSearchStrategy extends AbstractSearchStrategy {
 
@@ -12,7 +12,7 @@ public class UniformCostSearchStrategy extends AbstractSearchStrategy {
         return new Comparator<Cell>() {
             @Override
             public int compare(Cell o1, Cell o2) {
-                return Integer.compare(o1.g, o2.g);
+                return Integer.compare(o1.getG(), o2.getG());
             }
         };
     }

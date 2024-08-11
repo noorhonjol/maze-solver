@@ -20,19 +20,19 @@ public class SearchContext {
         PriorityQueue<Cell> openList = searchStrategy.getOpenList();
         Set<Cell> closeList = new HashSet<>();
 
-        start.f=0;
-        start.g=0;
-        start.h=start.calculateHeuristic();
+        start.setF(0);
+        start.setG(0);
+        start.setH(start.calculateHeuristic());
         openList.add(start);
 
         while(!openList.isEmpty()){
 
             Cell current= openList.poll();
-            List<Cell> successors= Utilities.getSuccessors(current,graph);
+            List<Cell> successors= getSuccessors(current,graph);
             for (Cell successor : successors){
 
                 if(goals.contains(successor)){
-                    successor.parent=current;
+                    successor.setParent(current);
                     return successor;
                 }
 
@@ -40,11 +40,11 @@ public class SearchContext {
                     continue;
                 }
 
-                else if (!openList.contains(successor) || current.g+1 < successor.g) {
-                    successor.g = current.g+1;
-                    successor.h = successor.calculateHeuristic();
-                    successor.f = successor.g + successor.h;
-                    successor.parent = current;
+                else if (!openList.contains(successor) || current.getG()+1 < successor.getG()) {
+                    successor.setG(current.getG()+1);
+                    successor.setH(successor.calculateHeuristic());
+                    successor.setF(successor.getG() + successor.getH());
+                    successor.setParent(current);
 
                     if (!openList.contains(successor)) {
                         openList.add(successor);
@@ -65,7 +65,22 @@ public class SearchContext {
         return null;
 
     }
+    private List<Cell> getSuccessors(Cell current,List<List<CellPanel>> graph) {
+        List<Cell> successors = new ArrayList<>();
+        int row = current.getRow();
+        int col = current.getColumn();
 
+
+        if (col-1 >= 0) successors.add(graph.get(row).get(col - 1).getCell());    // left
+        if (col+1 <= SettingsManger.width-1) successors.add(graph.get(row).get(col + 1).getCell());    // right
+        if (row-1 >= 0) successors.add(graph.get(row - 1).get(col).getCell());    // top
+        if (row+1 <= SettingsManger.height - 1) successors.add(graph.get(row + 1).get(col).getCell());    // bottom
+
+
+        successors.removeIf(cell -> cell.cellType==main.CellType.BlockCell);
+
+        return successors;
+    }
 
 
 }

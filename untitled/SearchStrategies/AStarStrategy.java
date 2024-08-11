@@ -3,8 +3,6 @@ package SearchStrategies;
 import main.Cell;
 
 import java.util.Comparator;
-import java.util.Objects;
-import java.util.PriorityQueue;
 
 public class AStarStrategy extends AbstractSearchStrategy {
 
@@ -13,10 +11,10 @@ public class AStarStrategy extends AbstractSearchStrategy {
         return new Comparator<Cell>() {
             @Override
             public int compare(Cell o1, Cell o2) {
-                if (!o1.f.equals(o2.f)) {
-                    return Integer.compare(o1.f, o2.f);
+                if (!o1.getF().equals(o2.getF())) {
+                    return Integer.compare(o1.getF(), o2.getF());
                 } else {
-                    return Integer.compare(o1.h, o2.h);
+                    return Integer.compare(o1.getH(), o2.getH());
                 }
             }
         };
