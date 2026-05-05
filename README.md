@@ -98,4 +98,4 @@ java -cp out main.Main
 ```
 
 ## Authors
-© 2026 Alaa Alawneh, Noor Honjol
+© 2024 Alaa Alawneh, Noor Honjol
